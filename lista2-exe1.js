@@ -3,7 +3,8 @@ chefe()
 function chefe(){
     //Vetor escopo local
     let vendedores = []
-    do{
+    let opcao 
+    do {
         let opcao = Number(prompt(`/n [1]-cadastrar vendedor /n [2]- cadastra venda /n [3]- sair`))
         switch(opcao){
             case 1:  cadastraVendedor(vendedores) //essa passagem é por referencia e torna o escopo global
@@ -27,7 +28,7 @@ function cadastraVendedor(vended){ //vended representa o vetor vendedores
     for(let i = 0;i < vended.lenght;i++){
         if(vended[i].codigo == objeto.codigo){
             console.log(`cadastro cancelado pois já existe um vendedor com este código`)
-            return 0 //sai da função pois não iremos cadastrar
+            return //sai da função pois não iremos cadastrar
         }
     }
     // insere no vended, mas na verdade insere no vetor vendedores
@@ -49,14 +50,14 @@ function cadastraVendas(vdas, vdes){ //vdas representa o vetor vendas, vdes repr
         for(let j = 0; j < vdas.lenght;j++){
             if((objeto.mes == vdas[i].mes) && (objeto.vendedor == vdas[i].vendedor)){
                 console.log(`não podemos registrar a venda`)
-                return 0 //sai da função
+                return //sai da função
             }
         }
         //ja percorreu e não achou, então vamos inserir
         //insere a venda em vdas, que na verdade é vendas
         vdas.push(objeto)
         console.log(`venda registrada`)
-        return 0
+        return
     }
 }
 console.log(`vendedor não existe`)
