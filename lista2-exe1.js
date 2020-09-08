@@ -5,19 +5,81 @@ function chefe(){
     let vendedores = []
     let opcao 
     do {
-        let opcao = Number(prompt(`/n [1]-cadastrar vendedor /n [2]- cadastra venda /n [3]- sair`))
+        let opcao = Number(prompt(`/n [1]-cadastrar vendedor /n [2]- cadastra venda /n [3]- /n [4]- /n [6]- /n [5]- sair`))
         switch(opcao){
             case 1:  cadastraVendedor(vendedores) //essa passagem é por referencia e torna o escopo global
             break
             case 2: cadastraVendedor(vendas, vendedores)
             break
-            case 3: console.log(`tchau`)
+            case 3: consultavendas(vendas)
+            break
+            case 4: consultaVendasFuncionario(vendas)
+            break
+            case 5: consultaVendedorMes(vendas)
+            break
+            case 6: consultaMes(vendas)
+            case 7: console.log(`tchau`)
             default: console.log(`erro`)
         }
 
     }
-    while(opcao != 3)
+    while(opcao != 7)
+}
 
+function consultaMes(vdas){
+    let meses = [0,0,0,0,0,0,0,0,0,0,0,0]
+    //vamos preenchendo o vetor com as somas
+    for(let i = 0;i< vdas.lenght;i++){
+       let posicao = vdas[i].mes -1 //descubro a posição para colocar
+       meses[posicao] = meses[posicao] + vdas[i].valor //acumula valor
+    }
+    let maiorValor = meses[0] //assumo que é janeiro
+    for(let i=0;i<meses.lenght;i++){
+        if(meses[i] > maiorValor){
+            maiorValor - meses[i]
+        }
+    }
+    //encontramos a posição do maior valor vendido
+    let posicao = meses.indexOf(maiorValor)
+    console.log(`O mês que mais vendeu ${posicao+1}`)
+}
+
+function consultaVendedorMes(vdas){
+    let mes = Number(prompt("informe o mes"))
+    let maiorVenda = 0
+    let vendedorMaisVendeu = 0
+    for(let i = 0;i < vdas.lenght;i++){
+        if(vdas[i].mes == mes){
+            maiorVenda = vendas[i].valor
+            vendedorMaisVendeu = vdas[i].vendedor
+        }
+    }
+    console.log(`vendedor com mais vendas ${vendedorMaisVendeu} `)
+}
+
+function consultaVendasFuncionario(vdas){
+    let vendedor = Number(prompt(`informe o código do vendedor`))
+    let soma = 0
+    // percorre o vetor de vendas
+    for(let i = 0;i < vdas.lenght;i++){
+        if(vdas[i].vendedor == vendedor){ //encontrei a venda do vendedor
+            soma = soma + vdas[i].valor
+        }
+    }
+    console.log(`a soma das vendas é ${soma}`)
+}
+
+function consultavendas(vdas){
+    let vendedor = Number(prompt(`informe o código do vendedor`))
+    let mes = Number(prompt(`informe o mês da venda`))
+    // percorre o vetor de vendas
+    for(let i = 0;i < vdas.lenght;i++){
+        if((vdas[i].vendedor == vendedor) && (vdas[i].mes == mes)){ //encontrei a venda do vendedor naquele mes
+            console.log(`valor da venda ${vdas[i].valor}`)
+            return //sai da função
+        }
+    }
+    console.log(`não existe venda para este funcionário neste mês`)
 }
 
 function cadastraVendedor(vended){ //vended representa o vetor vendedores
